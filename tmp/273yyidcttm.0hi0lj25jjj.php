@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="text/html; charset=windows-1250">
   <meta name="viewport" content="width=device-width" />
   <base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
-  <title><?php echo $PACKAGE; ?> 2014 Edible Pedal 100 Check In</title>
+  <title>2014 Edible Pedal 100 Check In</title>
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsee.css">  
   <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
@@ -32,8 +32,10 @@
 <div class="line">
 <div class="margin">
 		<div class="box">
-<?php echo $this->render(Base::instance()->get('content')); ?>
-
+<p>Hello, <?php echo $name; ?></p>
+<?php foreach (($result?:array()) as $item): ?>
+    <span><?php echo $item['LastName']; ?>, <?php echo $item['FirstName']; ?></span><br />
+	<?php endforeach; ?>
 		</div>
 </div>
 </div>

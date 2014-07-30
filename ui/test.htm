@@ -32,8 +32,10 @@
 <div class="line">
 <div class="margin">
 		<div class="box">
-<?php echo $this->render(Base::instance()->get('content')); ?>
-
+<p>Hello, {{@name}}</p>
+<repeat group="{{ @result }}" value="{{ @item }}">
+    <span>{{ @item.LastName  }}, {{ @item.FirstName  }}</span><br />
+	</repeat>
 		</div>
 </div>
 </div>
