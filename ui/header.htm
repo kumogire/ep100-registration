@@ -9,7 +9,11 @@
   <link rel="stylesheet" href="css/responsee.css">  
   <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
   <link rel="stylesheet" href="owl-carousel/owl.theme.css">
-  
+  <script>
+window.onload = function() {
+var input = document.getElementById("id").focus();
+}
+  </script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.7.0/jquery-ui.min.js"></script>    
   <script type="text/javascript" src="js/modernizr.js"></script>

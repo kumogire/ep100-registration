@@ -2,11 +2,16 @@
 	<p>Search registrations by Confirmation Code, First Name, Last Name:</p>
 	
 <form name="form" action="results" method="POST">
-<input type="text" name="id">
+<input type="text" name="id" autofocus>
 <input type="submit" value="Submit">
 </form>
-	<p><repeat group="{{ @m10checked }}" value="{{ @item }}">
-    <span>10 Milers - Checked In: {{ @item.c  }}</span><br />
+	<p><repeat group="{{ @totalriders }}" value="{{ @item }}">
+    <span>Total Registrations: {{ @item.r  }}</span><br />
 	</repeat>
 	</p>
+	<p><repeat group="{{ @totalriderschecked }}" value="{{ @item }}">
+    <span>Total Check-Ins: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><a href="stats">All Stats</a></p>
 

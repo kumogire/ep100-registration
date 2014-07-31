@@ -11,13 +11,14 @@ $f3->set('DB', new DB\SQL(
     ''
 )); 
 
-//DEFAULT SEARCH PAGE
+//DEFAULT SEARCH PAGE (HOME)
 $f3->route('GET /',
 	function($f3) {
 
 	$db = $f3->get('DB');
 	
-$f3->set('m10checked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber <> 0 AND TicketType = "EP100 10 Mile"'));
+$f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations'));
+$f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber <> 0'));
 	$template=new Template;
 	echo $template->render('header.htm');
     echo $template->render('search.htm');
@@ -50,5 +51,28 @@ $f3->route('POST /results',
 		echo $template->render('footer.htm');
 	}
 );
+
+
+
+//STATS PAGE
+$f3->route('GET /stats',
+	function($f3) {
+
+	$db = $f3->get('DB');
+	
+$f3->set('total10mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 10 Mile"'));
+$f3->set('total10michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber <> 0 AND TicketType = "EP100 10 Mile"'));
+$f3->set('total50mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 50 Mile"'));
+$f3->set('total50michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber <> 0 AND TicketType = "EP100 50 Mile"'));
+$f3->set('total100mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 150K (93.2 miles)"'));
+$f3->set('total100michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber <> 0 AND TicketType = "EP100 150K (93.2 miles)"'));
+	$template=new Template;
+	echo $template->render('header.htm');
+    echo $template->render('stats.htm');
+	echo $template->render('footer.htm');
+	}
+);
+
+
 
 $f3->run();

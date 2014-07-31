@@ -1,0 +1,28 @@
+	<h2>Rider Stats</h2>
+	
+	<p><repeat group="{{ @total10mi }}" value="{{ @item }}">
+    <span>10 milers - Total Registrations: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><repeat group="{{ @total10michecked }}" value="{{ @item }}">
+    <span>10 milers - Total Check-Ins: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><repeat group="{{ @total50mi }}" value="{{ @item }}">
+    <span>50 milers - Total Registrations: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><repeat group="{{ @total50michecked }}" value="{{ @item }}">
+    <span>50 milers - Total Check-Ins: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><repeat group="{{ @total100mi }}" value="{{ @item }}">
+    <span>100 milers - Total Registrations: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><repeat group="{{ @total100michecked }}" value="{{ @item }}">
+    <span>100 milers - Total Check-Ins: {{ @item.c  }}</span><br />
+	</repeat>
+	</p>
+	<p><a href="search">Back to Home</a></p>
+
