@@ -23,16 +23,15 @@ var input = document.getElementById("id").focus();
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 </head>
-<body class="size-960">
+<body class="size-1140">
  <!-- HEADER -->
   <header>
 	<div class="line">
 	  <div class="box">
-	  2014 Edible Pedal 100 Check In
+	  <h1>2014 Edible Pedal 100 Check In</h1>
 		</div>
 </div>
   </header> 
 <section>
 <div class="line">
-<div class="margin">
-		<div class="box">
+		<div class="box center">

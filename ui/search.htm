@@ -1,17 +1,35 @@
 	<h2>Rider Lookup</h2>
-	<p>Search registrations by Confirmation Code, First Name, Last Name:</p>
 	
-<form name="form" action="results" method="POST">
-<input type="text" name="id" autofocus>
-<input type="submit" value="Submit">
+	<h4>Search registrations by Confirmation Code, First Name, Last Name:</h4>
+
+<form class="customform" action="results" method="POST">
+<div class="line">
+<div class="margin">
+<div class="s-12 l-4">
+<div class="s-8"><input type="text" name="id" autofocus></div>
+<div class="s-8 l-4 right margin"><button type="submit">Search</button></div>
+</div>
+</div>
+</div>
+
 </form>
-	<p><repeat group="{{ @totalriders }}" value="{{ @item }}">
+<div class="line">
+<div class="margin">
+<div class="s-12 l-4">
+	<repeat group="{{ @totalriders }}" value="{{ @item }}">
     <span>Total Registrations: {{ @item.r  }}</span><br />
 	</repeat>
-	</p>
-	<p><repeat group="{{ @totalriderschecked }}" value="{{ @item }}">
+</div>
+</div>
+</div>
+<div class="line">
+<div class="margin">
+<div class="s-12 l-4">
+	<repeat group="{{ @totalriderschecked }}" value="{{ @item }}">
     <span>Total Check-Ins: {{ @item.c  }}</span><br />
 	</repeat>
-	</p>
-	<p><a href="stats">All Stats</a></p>
+</div>
+</div>
+</div>
+<p><a href="stats">All Stats</a></p>
 

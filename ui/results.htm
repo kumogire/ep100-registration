@@ -1,6 +1,38 @@
-	<h2>Search Results</h2>
-	<p><repeat group="{{ @result }}" value="{{ @item }}">
-    <span>{{ @item.LastName  }}, {{ @item.FirstName  }} - {{ @item.TicketType  }}</span><br />
-	</repeat>
-	</p>
+<h2>Search Results</h2>
 
+<form class="customform" action="updategroup" method="POST">
+
+<div class="line">
+<div class="s-12 l-4 right "><button type="submit">Check In Guests</button></div>
+<table>
+<thead>
+<tr>
+<th width="100">Bib #</th>
+<th>Confirmation</th>
+<th>Route</th>
+<th>Last Name</th>
+<th>First Name</th>
+<th width="200">Email</th>
+<th>Past Rides</th>
+<th>Transfer</th>
+</tr>
+</thead>
+<tbody>
+<repeat group="{{ @result }}" value="{{ @item }}">
+<tr>
+<td><input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}"><input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}"></td>
+<td><a href="details/{{ @item.RiderID  }}">{{ @item.OrderNum  }}</a></td>
+<td>{{ @item.TicketType  }}</td>
+<td>{{ @item.LastName  }}</td>
+<td>{{ @item.FirstName  }}</td>
+<td><input type="text" name="Email[]" value="{{ @item.Email  }}"></td>
+<td>{{ @item.2011Rider  }}  {{ @item.2012Rider  }}  {{ @item.2013Rider  }}</td>
+<td>Add Transfer</td>
+</tr>
+</repeat>
+
+</tbody>
+</table>
+<div class="s-12 l-4 right "><a href="">Back to search</a></div>
+</div>
+</form>
