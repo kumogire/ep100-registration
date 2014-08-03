@@ -1,7 +1,7 @@
 <h2>Search Results</h2>
 
 <form class="customform" action="updaterider" method="POST">
-<?php foreach (($result?:array()) as $item): ?>
+<?php foreach (($rider?:array()) as $item): ?>
 <div class="line">
 <input type="hidden" name="RiderID[]" value="<?php echo $item['RiderID']; ?>">
 <table>

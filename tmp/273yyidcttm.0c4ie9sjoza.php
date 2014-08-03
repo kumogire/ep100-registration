@@ -31,6 +31,22 @@ var input = document.getElementById("id").focus();
 	  <h1>2014 Edible Pedal 100 Check In</h1>
 		</div>
 </div>
+
+	<!-- TOP NAV -->  
+	<div class="line">
+	  <nav>
+		<p class="nav-text">Custom menu text</p> 
+		<div class="top-nav s-12 l-10">
+		  <ul>
+			<li><a href="">Home</a></li>
+			<li><a href="<?php echo $BASE.'/'.'stats'; ?>">Stats</a></li>
+		  </ul>
+		</div>
+		<div class=" hide-s l-2">
+		  <a href="add"><i class="icon-plus icon2x right padding" alt="Add Rider"></i></a>
+		</div>
+	  </nav>
+	</div>
   </header> 
 <section>
 <div class="line">

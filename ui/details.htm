@@ -1,7 +1,7 @@
 <h2>Search Results</h2>
 
 <form class="customform" action="updaterider" method="POST">
-<repeat group="{{ @result }}" value="{{ @item }}">
+<repeat group="{{ @rider }}" value="{{ @item }}">
 <div class="line">
 <input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}">
 <table>

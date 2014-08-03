@@ -1,5 +1,5 @@
-<h2>Search Results</h2>
-
+<h2>Search Results for "<?php echo $search; ?>"</h2>
+<h4><?php echo $count; ?> records returned</h4>
 <form class="customform" action="updategroup" method="POST">
 
 <div class="line">
@@ -33,6 +33,6 @@
 
 </tbody>
 </table>
-<div class="s-12 l-4 right "><a href="<?php echo $base; ?>">Back to search</a></div>
+
 </div>
 </form>

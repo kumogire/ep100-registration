@@ -16,7 +16,7 @@ $f3->route('GET /',
 	function($f3) {
 
 	$db = $f3->get('DB');
-	
+	$f3->set('message', 'Rider(s) Sucessfully Checked-In');
 $f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations'));
 $f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL'));
 	$template=new Template;
@@ -40,12 +40,29 @@ $f3->route('POST /results',
 	//ASSIGN POST PARAMETERS TO SEARCH VAR
 	$search = $f3->get('POST.id');
 	
-	$db = $f3->get('DB');
+		$db = $f3->get('DB');
 	
 		//SET VAR VALUE EXAMPLE
 		//$f3->set('name','world');
-		//CREATE QUERY AND ASSIGN TO DATA SET
-		$f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, LastName, TicketType, Email, 2011Rider, 2012Rider, 2013Rider FROM registrations WHERE OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ORDER BY TicketType, LastName ASC '));
+
+		//CREATE QUERY AND ASSIGN TO DATA SET - OLD WAY
+		//$f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, LastName, TicketType, Email, 2011Rider, 2012Rider, 2013Rider FROM registrations WHERE OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ORDER BY TicketType, LastName ASC '));
+
+		//CREATE QUERY AND ASSIGN TO DATA SET		
+		$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');
+		$filter = '  OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ';
+		//CAN ADD LIMIT PARAM TO OPTION ARRAY, REMEMBER COMMA AFTER ORDER LINE
+		$option = array(
+            'order' => 'TicketType, LastName ASC'
+		);   
+		$resultset=$riders->find($filter,$option);
+		//HOW MANY RESULTS?
+		$count = count($resultset);
+		$f3->set('count',$count);
+		//SET QUERY VAR
+		$f3->set('search',$search);
+		$f3->set('result',$resultset);
+		
 		
 		//BUILD DISPLAY TEMPLATES
 		$template=new Template;
@@ -84,8 +101,13 @@ $f3->route('GET /details/@RiderID',
 
 	$db = $f3->get('DB');
 	$RiderID = $f3->get('PARAMS.RiderID');
-	
-$f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, LastName, TicketType, Email, 2011Rider, 2012Rider, 2013Rider FROM registrations WHERE RiderID = "'.$RiderID.'%" '));
+
+$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
+$filter = ' RiderID = "'.$RiderID.'%"';
+    
+$rider=$redit->find($filter);
+$f3->set('rider',$rider);
+
 	$template=new Template;
 	echo $template->render('header.htm');
     echo $template->render('details.htm');
@@ -94,7 +116,36 @@ $f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, Las
 );
 
 //UPDATE GROUP FUNCTIONALITY
+$f3->route('GET /updategroup',
+function($f3) {
+
+	$db = $f3->get('DB');
+	$RiderID = $f3->get('POST.RiderID');
+
+$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
+$filter = ' RiderID = "'.$RiderID.'%"';
+    
+$rider=$redit->find($filter);
+
+
+	}
+);
 
 //UPDATE RIDER FUNCTIONALITY
+$f3->route('GET /updaterider',
+function($f3) {
+
+	$db = $f3->get('DB');
+	$RiderID = $f3->get('POST.RiderID');
+
+$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
+$filter = ' RiderID = "'.$RiderID.'%"';
+    
+$rider=$redit->find($filter);
+
+
+	}
+);
+
 
 $f3->run();
