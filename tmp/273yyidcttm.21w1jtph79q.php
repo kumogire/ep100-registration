@@ -15,6 +15,7 @@
 <th width="200">Email</th>
 <th>Past Rides</th>
 <th>Transfer</th>
+<th>Edit</th>
 </tr>
 </thead>
 <tbody>
@@ -27,7 +28,8 @@
 <td><?php echo $item['FirstName']; ?></td>
 <td><input type="text" name="Email[]" value="<?php echo $item['Email']; ?>"></td>
 <td><?php echo $item['2011Rider']; ?>  <?php echo $item['2012Rider']; ?>  <?php echo $item['2013Rider']; ?></td>
-<td>Add Transfer</td>
+<td><a href="transfer/<?php echo $item['RiderID']; ?>"><i class="icon-random icon2x right padding" alt="Transfer"></i></a></td>
+<td><a href="details/<?php echo $item['RiderID']; ?>"><i class="icon-share icon2x right padding" alt="Edit Rider"></i></a></td>
 </tr>
 <?php endforeach; ?>
 

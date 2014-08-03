@@ -15,6 +15,7 @@
 <th width="200">Email</th>
 <th>Past Rides</th>
 <th>Transfer</th>
+<th>Edit</th>
 </tr>
 </thead>
 <tbody>
@@ -27,7 +28,8 @@
 <td>{{ @item.FirstName  }}</td>
 <td><input type="text" name="Email[]" value="{{ @item.Email  }}"></td>
 <td>{{ @item.2011Rider  }}  {{ @item.2012Rider  }}  {{ @item.2013Rider  }}</td>
-<td>Add Transfer</td>
+<td><a href="transfer/{{ @item.RiderID  }}"><i class="icon-random icon2x right padding" alt="Transfer"></i></a></td>
+<td><a href="details/{{ @item.RiderID  }}"><i class="icon-share icon2x right padding" alt="Edit Rider"></i></a></td>
 </tr>
 </repeat>
 
