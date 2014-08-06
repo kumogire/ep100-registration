@@ -11,12 +11,34 @@ $f3->set('DB', new DB\SQL(
     ''
 )); 
 
-//DEFAULT SEARCH FORM VIEW(HOME)
 $f3->route('GET /',
+	function($f3) {
+$f3->reroute('/home/0');
+	}
+);
+
+
+//DEFAULT SEARCH FORM VIEW(HOME)
+
+$f3->route('GET /home/@status',
 	function($f3) {
 
 	$db = $f3->get('DB');
-	$f3->set('message', 'Rider(s) Sucessfully Checked-In');
+	
+	//MESSAGING
+	$status = $f3->get('PARAMS.status');
+	if($status == '1'){
+	$f3->set('message', 'Rider(s) successfully checked-in.');
+	}elseif($status == '2'){
+	$f3->set('message', 'Rider added to database.');
+	}elseif($status == '3'){
+	$f3->set('message', 'Rider information updated.');
+	}elseif($status == '4'){
+	$f3->set('message', 'Transfer created.');
+	}else{
+	$f3->set('message', '');
+	}
+	
 $f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations'));
 $f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL'));
 	$template=new Template;
@@ -26,7 +48,9 @@ $f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrat
 	}
 );
 
+
 //SEARCH RESULTS VIEW
+
 $f3->route('POST /results',
 	function($f3) {
 	
@@ -73,8 +97,8 @@ $f3->route('POST /results',
 );
 
 
-
 //CURRENT RIDE CHECKIN STATS VIEW
+
 $f3->route('GET /stats',
 	function($f3) {
 
@@ -94,7 +118,23 @@ $f3->set('total100michecked',$db->exec('SELECT count(LastName) c FROM registrati
 );
 
 
-//RIDER DETAIL VIEW
+
+//ADD RIDER VIEW
+
+$f3->route('GET /add',
+
+	function($f3) {
+
+	$template=new Template;
+	echo $template->render('header.htm');
+    echo $template->render('addrider.htm');
+	echo $template->render('footer.htm');
+	}
+);
+
+
+//RIDER DETAIL (& EDIT) VIEW
+
 $f3->route('GET /details/@RiderID',
 
 	function($f3) {
@@ -115,35 +155,93 @@ $f3->set('rider',$rider);
 	}
 );
 
-//UPDATE GROUP FUNCTIONALITY
-$f3->route('GET /updategroup',
+
+//UPDATE GROUP FUNCTIONALITY (STATUS 1)
+
+$f3->route('POST /updategroup',
 function($f3) {
 
 	$db = $f3->get('DB');
-	$RiderID = $f3->get('POST.RiderID');
 
-$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
-$filter = ' RiderID = "'.$RiderID.'%"';
-    
-$rider=$redit->find($filter);
+$R = $f3->get('POST.RiderID');
+$B = $f3->get('POST.BibNumber');
+$E = $f3->get('POST.Email');
+$i = 0;
 
+//$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
 
+foreach ($R as &$value) {
+if($B[$i] != ''){
+$db->exec('UPDATE registrations SET BibNumber = "'.$B[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');
+$i++;
+}
+}
+
+$f3->reroute('/home/1');
 	}
 );
 
-//UPDATE RIDER FUNCTIONALITY
-$f3->route('GET /updaterider',
+
+//CREATE NEW RIDER (STATUS 2)
+
+$f3->route('POST|HEAD /addrider',
+function($f3) {
+
+	$db = $f3->get('DB');
+	$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
+	//$f3->get('rider')->load(array('RiderID=?',$f3->get('POST.RiderID')));
+	$f3->get('rider')->copyFrom('POST');
+	//$f3->get('rider')->update(); 
+	$f3->get('rider')->save();  
+	//echo $db->log();
+$f3->reroute('/home/2');
+ 
+	}
+);
+
+
+//UPDATE RIDER FUNCTIONALITY (STATUS 3)
+
+$f3->route('POST|HEAD /updaterider',
 function($f3) {
 
 	$db = $f3->get('DB');
 	$RiderID = $f3->get('POST.RiderID');
 
-$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
-$filter = ' RiderID = "'.$RiderID.'%"';
-    
-$rider=$redit->find($filter);
+if($f3->exists('POST.RiderID'))
+    {
+	$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
+	$f3->get('rider')->load(array('RiderID=?',$f3->get('POST.RiderID')));
+	$f3->get('rider')->copyFrom('POST');
+	$f3->get('rider')->update(); 
+	$f3->get('rider')->save();  
+	//echo $db->log();
+$f3->reroute('/home/3');
+    }
+	
+	}
+);
 
 
+//NEW TRANSFER (STATUS 4)
+
+$f3->route('POST|HEAD /transferrider',
+function($f3) {
+
+	$db = $f3->get('DB');
+	$RiderID = $f3->get('POST.RiderID');
+
+if($f3->exists('POST.RiderID'))
+    {
+	$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
+	$f3->get('rider')->load(array('RiderID=?',$f3->get('POST.RiderID')));
+	$f3->get('rider')->copyFrom('POST');
+	$f3->get('rider')->update(); 
+	$f3->get('rider')->save();  
+	//echo $db->log();
+$f3->reroute('/home/3');
+    }
+	
 	}
 );
 
