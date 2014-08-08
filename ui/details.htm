@@ -1,7 +1,30 @@
-<h2>Rider Details</h2>
+
 
 <form class="customform" action="updaterider" method="POST">
 <repeat group="{{ @rider }}" value="{{ @item }}">
+
+<h2>Rider Details - {{ @item.LastName  }}, {{ @item.FirstName  }} </h2>
+<F3:check if="{{ @item.CheckinDate <> '0000-00-00 00:00:00' }}">
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Check In Date/Time: {{ @item.CheckinDate  }}</strong></div>
+	</div>
+</div>
+</F3:check>
+<F3:check if="{{ @item.LastUpdate <> '' }}">
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Last Updated: {{ @item.LastUpdate  }}</strong></div>
+	</div>
+</div>
+</F3:check>
+<F3:check if="{{ @item.NewRider == 'Yes' }}">
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION</strong></div>
+	</div>
+</div>
+</F3:check>
 <div class="line">
 <input type="hidden" name="RiderID" value="{{ @item.RiderID  }}">
 <table>
@@ -35,12 +58,7 @@
 <td><strong>Transferee?</strong></td><td>{{ @item.TransferFrom  }}</td>
 </tr>
 <tr>
-<td><strong>Check In Date</strong></td><td>{{ @item.CheckinDate  }}</td>
-<td><strong>Last Updated?</strong></td><td>{{ @item.LastUpdate  }}</td>
-</tr>
-<tr>
-<td><strong>Notes</strong></td><td><textarea name="RiderNotes">{{ @item.RiderNotes  }}</textarea></td>
-<td><strong>New Registration?</strong></td><td>{{ @item.NewRider  }}</td>
+<td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>
 </tr>
 </tbody>
 </table>

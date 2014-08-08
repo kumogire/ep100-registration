@@ -1,7 +1,30 @@
-<h2>Rider Details</h2>
+
 
 <form class="customform" action="updaterider" method="POST">
 <?php foreach (($rider?:array()) as $item): ?>
+
+<h2>Rider Details - <?php echo $item['LastName']; ?>, <?php echo $item['FirstName']; ?> </h2>
+<?php if ($item['CheckinDate'] <> '0000-00-00 00:00:00'): ?>
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Check In Date/Time: <?php echo $item['CheckinDate']; ?></strong></div>
+	</div>
+</div>
+<?php endif; ?>
+<?php if ($item['LastUpdate'] <> ''): ?>
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Last Updated: <?php echo $item['LastUpdate']; ?></strong></div>
+	</div>
+</div>
+<?php endif; ?>
+<?php if ($item['NewRider'] == 'Yes'): ?>
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION</strong></div>
+	</div>
+</div>
+<?php endif; ?>
 <div class="line">
 <input type="hidden" name="RiderID" value="<?php echo $item['RiderID']; ?>">
 <table>
@@ -35,12 +58,7 @@
 <td><strong>Transferee?</strong></td><td><?php echo $item['TransferFrom']; ?></td>
 </tr>
 <tr>
-<td><strong>Check In Date</strong></td><td><?php echo $item['CheckinDate']; ?></td>
-<td><strong>Last Updated?</strong></td><td><?php echo $item['LastUpdate']; ?></td>
-</tr>
-<tr>
-<td><strong>Notes</strong></td><td><textarea name="RiderNotes"><?php echo $item['RiderNotes']; ?></textarea></td>
-<td><strong>New Registration?</strong></td><td><?php echo $item['NewRider']; ?></td>
+<td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>
 </tr>
 </tbody>
 </table>

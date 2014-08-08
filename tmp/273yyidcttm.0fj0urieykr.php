@@ -24,5 +24,5 @@
     <span>100 milers - Total Check-Ins: <?php echo $item['c']; ?></span><br />
 	<?php endforeach; ?>
 	</p>
-	<p><a href="search">Back to Home</a></p>
+
 

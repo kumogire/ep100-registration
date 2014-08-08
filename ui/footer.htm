@@ -8,7 +8,7 @@
 		<p>© 2014 Edible Pedal 100, All Rights Reserved</p>
 	  </div>
 	  <div class="s-12 l-6">
-		<p class="right">Design and coding by Trinity Applied Internet</p>
+		<p class="right">Developed by Trinity Applied Internet</p>
 	  </div>
 	</div>    
   </footer>

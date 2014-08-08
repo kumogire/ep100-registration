@@ -72,9 +72,12 @@ $f3->route('POST /results',
 		//CREATE QUERY AND ASSIGN TO DATA SET - OLD WAY
 		//$f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, LastName, TicketType, Email, 2011Rider, 2012Rider, 2013Rider FROM registrations WHERE OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ORDER BY TicketType, LastName ASC '));
 
+		$onum = substr($search,0,9);
+		//echo $onum;
+		
 		//CREATE QUERY AND ASSIGN TO DATA SET		
 		$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');
-		$filter = '  OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ';
+		$filter = '  OrderNum LIKE "'.$onum.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ';
 		//CAN ADD LIMIT PARAM TO OPTION ARRAY, REMEMBER COMMA AFTER ORDER LINE
 		$option = array(
             'order' => 'TicketType, LastName ASC'
@@ -173,8 +176,8 @@ $i = 0;
 foreach ($R as &$value) {
 if($B[$i] != ''){
 $db->exec('UPDATE registrations SET BibNumber = "'.$B[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');
-$i++;
 }
+$i++;
 }
 
 $f3->reroute('/home/1');
