@@ -3,7 +3,9 @@
 <form class="customform" action="updaterider" method="POST">
 <?php foreach (($rider?:array()) as $item): ?>
 
-<h2>Rider Details - <?php echo $item['LastName']; ?>, <?php echo $item['FirstName']; ?> </h2>
+<h2>Rider Details - <?php echo $item['LastName']; ?>, <?php echo $item['FirstName']; ?> 
+<?php if ($item['TransferFrom'] != ''): ?> *Transfer*<?php endif; ?>
+<?php if ($item['TransferTo'] != ''): ?> *Ticket Transfered*<?php endif; ?></h2>
 <?php if ($item['CheckinDate'] <> '0000-00-00 00:00:00'): ?>
 <div class="line left">
 	<div class="margin-bottom">
@@ -21,7 +23,7 @@
 <?php if ($item['NewRider'] == 'Yes'): ?>
 <div class="line left">
 	<div class="margin-bottom">
-		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION</strong></div>
+		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION (On-site)</strong></div>
 	</div>
 </div>
 <?php endif; ?>
@@ -51,11 +53,56 @@
 </tr>
 <tr>
 <td><strong>Waiver</strong></td><td><?php echo $item['Waiver']; ?></td>
-<td><strong>Past Rides</strong></td><td><?php echo $item['2011Rider']; ?>  <?php echo $item['2012Rider']; ?>  <?php echo $item['2013Rider']; ?></td>
+
+
+
+<td><strong>Past Rides</strong></td><td>
+<?php if ($item['2011Rider'] == 'No'): ?>
+    
+        <?php echo $item['2011Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2011Rider'] = '2011'; ?>
+    
+<?php endif; ?>
+<?php if ($item['2012Rider'] == 'No'): ?>
+    
+        <?php echo $item['2012Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2012Rider'] = '2012'; ?>
+    
+<?php endif; ?>
+<?php if ($item['2013Rider'] == 'No'): ?>
+    
+        <?php echo $item['2013Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2013Rider'] = '2013'; ?>
+    
+<?php endif; ?>
+
+</td>
 </tr>
 <tr>
-<td><strong>Transferred?</strong></td><td><?php echo $item['TransferTo']; ?></td>
-<td><strong>Transferee?</strong></td><td><?php echo $item['TransferFrom']; ?></td>
+<td><strong>Transferred?</strong></td>
+<?php if ($item['TransferTo'] != ''): ?>
+    
+<td><a href="details/<?php echo $item['TransferTo']; ?>">Ticket Transferred To -></a></td>
+    
+	<?php else: ?>
+<td>&nbsp;</td>
+    
+<?php endif; ?>
+<td><strong>Transferee?</strong></td>
+<?php if ($item['TransferFrom'] != ''): ?>
+    
+ <td><a href="details/<?php echo $item['TransferFrom']; ?>">Ticket Transferred From -></a></td>
+    
+    <?php else: ?>
+<td>&nbsp;</td>
+    
+<?php endif; ?>
 </tr>
 <tr>
 <td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>

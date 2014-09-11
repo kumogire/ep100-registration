@@ -20,15 +20,58 @@
 </thead>
 <tbody>
 <?php foreach (($result?:array()) as $item): ?>
+
+
 <tr>
-<td><input type="text" name="BibNumber[]" value="<?php echo $item['BibNumber']; ?>"><input type="hidden" name="RiderID[]" value="<?php echo $item['RiderID']; ?>"></td>
+<td>
+<?php if ($item['TransferTo'] != ''): ?>
+    
+*****
+	
+    <?php else: ?>
+<input type="text" name="BibNumber[]" value="<?php echo $item['BibNumber']; ?>">
+    
+<?php endif; ?>
+<input type="hidden" name="RiderID[]" value="<?php echo $item['RiderID']; ?>"></td>
 <td><a href="details/<?php echo $item['RiderID']; ?>"><?php echo $item['OrderNum']; ?></a></td>
 <td><?php echo $item['TicketType']; ?></td>
 <td><?php echo $item['LastName']; ?></td>
 <td><?php echo $item['FirstName']; ?></td>
 <td><input type="text" name="Email[]" value="<?php echo $item['Email']; ?>"></td>
-<td><?php echo $item['2011Rider']; ?>  <?php echo $item['2012Rider']; ?>  <?php echo $item['2013Rider']; ?></td>
+<td>
+<?php if ($item['2011Rider'] == 'No'): ?>
+    
+        <?php echo $item['2011Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2011Rider'] = '2011'; ?>
+    
+<?php endif; ?>
+<?php if ($item['2012Rider'] == 'No'): ?>
+    
+        <?php echo $item['2012Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2012Rider'] = '2012'; ?>
+    
+<?php endif; ?>
+<?php if ($item['2013Rider'] == 'No'): ?>
+    
+        <?php echo $item['2013Rider'] = ''; ?>
+    
+    <?php else: ?>
+        <?php echo $item['2013Rider'] = '2013'; ?>
+    
+<?php endif; ?>
+</td>
+<?php if ($item['TransferTo'] != ''): ?>
+    
+ <td><a href="details/<?php echo $item['TransferTo']; ?>">Transferred</a></td>
+    
+    <?php else: ?>
 <td><a href="transfer/<?php echo $item['RiderID']; ?>"><i class="icon-random icon2x right padding" alt="Transfer"></i></a></td>
+    
+<?php endif; ?>
 <td><a href="details/<?php echo $item['RiderID']; ?>"><i class="icon-share icon2x right padding" alt="Edit Rider"></i></a></td>
 </tr>
 <?php endforeach; ?>

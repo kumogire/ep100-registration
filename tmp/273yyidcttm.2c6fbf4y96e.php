@@ -48,8 +48,8 @@
 <td><strong>Rotarian?</strong></td>
 <td>
 <select name="Rotarian">
-<option value="Yes">Yes</option>
 <option value="No">No</option>
+<option value="Yes">Yes</option>
 </select>
 </td>
 </tr>

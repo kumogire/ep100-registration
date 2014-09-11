@@ -159,13 +159,56 @@ $f3->route('GET /stats',
 	function($f3) {
 
 	$db = $f3->get('DB');
-	
-$f3->set('total10mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 10 Mile"'));
-$f3->set('total10michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 10 Mile"'));
-$f3->set('total50mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 50 Mile"'));
-$f3->set('total50michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 50 Mile"'));
-$f3->set('total100mi',$db->exec('SELECT count(LastName) c FROM registrations WHERE TicketType = "EP100 150K (93.2 miles)"'));
-$f3->set('total100michecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 150K (93.2 miles)"'));
+
+//10 miler stats
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 10 Mile"');
+$t10m = count($rows);
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 10 Mile"');
+$t10mcheck = count($rows);
+$percent10m = round(($t10mcheck/$t10m)*100)." %";
+
+//50 miler stats
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 50 Mile"');
+$t50m = count($rows);
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 50 Mile"');
+$t50mcheck = count($rows);
+$percent50m = round(($t50mcheck/$t50m)*100)." %";
+
+//100 miler stats
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 150K (93.2 miles)"');
+$t100m = count($rows);
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 150K (93.2 miles)"');
+$t100mcheck = count($rows);
+$percent100m = round(($t100mcheck/$t100m)*100)." %";
+
+//Riders Checked In on Friday
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-11-14" and BibNumber IS NOT NULL ');
+$totalfri = count($rows);
+
+//Riders Checked In on Saturday
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-20-14" and BibNumber IS NOT NULL ');
+$totalsat = count($rows);
+
+//Riders Checked In on Sunday
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-21-14" and BibNumber IS NOT NULL ');
+$totalsun = count($rows);
+
+
+		//SET QUERY VAR
+		$f3->set('p10',$percent10m);
+		$f3->set('p50',$percent50m);
+		$f3->set('p100',$percent100m);
+		$f3->set('r10r',$t10m);
+		$f3->set('r50r',$t50m);
+		$f3->set('r100r',$t100m);
+		$f3->set('r10c',$t10mcheck);
+		$f3->set('r50c',$t50mcheck);
+		$f3->set('r100c',$t100mcheck);
+		$f3->set('tfri',$totalfri);
+		$f3->set('tsat',$totalsat);
+		$f3->set('tsun',$totalsun);
+		
+
 	$template=new Template;
 	echo $template->render('header.htm');
     echo $template->render('stats.htm');
@@ -199,7 +242,7 @@ $f3->route('GET /details/@RiderID',
 	$RiderID = $f3->get('PARAMS.RiderID');
 
 $redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
-$filter = ' RiderID = "'.$RiderID.'%"';
+$filter = ' RiderID = "'.$RiderID.'"';
     
 $rider=$redit->find($filter);
 $f3->set('rider',$rider);
@@ -224,7 +267,7 @@ $f3->route('GET /transfer/@RiderID',
 	$RiderID = $f3->get('PARAMS.RiderID');
 
 $redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
-$filter = ' RiderID = "'.$RiderID.'%"';
+$filter = ' RiderID = "'.$RiderID.'"';
     
 $rider=$redit->find($filter);
 $f3->set('rider',$rider);
@@ -254,7 +297,12 @@ $i = 0;
 
 foreach ($R as &$value) {
 if($B[$i] != ''){
+//CHECK TO SEE IF THEY HAVE BEEN CHECKED IN ALREADY
+$rows=$db->exec('SELECT BibNumber FROM registrations WHERE BibNumber = "'.$B[$i].'"');
+$exists = count($rows);
+if($exists == 0){
 $db->exec('UPDATE registrations SET BibNumber = "'.$B[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');
+}
 }
 $i++;
 }
@@ -274,7 +322,14 @@ function($f3) {
 	//$f3->get('rider')->load(array('RiderID=?',$f3->get('POST.RiderID')));
 	$f3->get('rider')->copyFrom('POST');
 	//$f3->get('rider')->update(); 
-	$f3->get('rider')->save();  
+	$f3->get('rider')->save(); 
+	$lastInsertedID = $f3->get('rider')->get('_id');
+
+$BibNumber = $f3->get('POST.BibNumber');
+if($BibNumber != ""){
+$db->exec('UPDATE registrations SET BibNumber = "'.$BibNumber.'", CheckInDate = now() WHERE RiderID = "'.$lastInsertedID.'"');
+}
+	
 	//echo $db->log();
 $f3->reroute('/home/2');
  
@@ -319,6 +374,11 @@ function($f3) {
 	$f3->get('rider')->copyFrom('POST');
 	$f3->get('rider')->save(); 
 	$lastInsertedID = $f3->get('rider')->get('_id');
+	
+$BibNumber = $f3->get('POST.BibNumber');
+if($BibNumber != ""){
+$db->exec('UPDATE registrations SET BibNumber = "'.$BibNumber.'", CheckInDate = now() WHERE RiderID = "'.$lastInsertedID.'"');
+}
 	
 	//UPDATE OLD RECORD
 

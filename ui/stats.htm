@@ -1,28 +1,38 @@
-	<h2>Rider Stats</h2>
+	<h2>2014 Rider Stats</h2>
+
+<table>
+<tbody>
+<tr>
+<td><h3>100 mile</h3></td>
+<td><h3>50 mile</h3></td>
+<td><h3>10 mile</h3></td>
+</tr>
+<tr>
+<td><h3>{{ @p10  }} Checked-In</h3></td>
+<td><h3>{{ @p50  }} Checked-In</h3></td>
+<td><h3>{{ @p100  }} Checked-In</h3></td>
+</tr>
+<tr>
+<td>{{ @r10r  }} Total Registered</td>
+<td>{{ @r50r  }} Total Registered</td>
+<td>{{ @r100r  }} Total Registered</td>
+</tr>
+<tr>
+<td>{{ @r10c  }} Total Checked</td>
+<td>{{ @r50c  }} Total Checked</td>
+<td>{{ @r100c  }} Total Checked</td>
+</tr>
+<tr>
+<td colspan="3">
+<h3>Check-ins by Day</h3>
+<ul>
+<li>Friday: {{ @tfri  }}</li>
+<li>Saturday: {{ @tsat  }}</li>
+<li>Sunday: {{ @tsun  }}</li>
+</u>
+</td>
+</tr>
+</tbody>
+</table>
 	
-	<p><repeat group="{{ @total10mi }}" value="{{ @item }}">
-    <span>10 milers - Total Registrations: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-	<p><repeat group="{{ @total10michecked }}" value="{{ @item }}">
-    <span>10 milers - Total Check-Ins: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-	<p><repeat group="{{ @total50mi }}" value="{{ @item }}">
-    <span>50 milers - Total Registrations: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-	<p><repeat group="{{ @total50michecked }}" value="{{ @item }}">
-    <span>50 milers - Total Check-Ins: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-	<p><repeat group="{{ @total100mi }}" value="{{ @item }}">
-    <span>100 milers - Total Registrations: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-	<p><repeat group="{{ @total100michecked }}" value="{{ @item }}">
-    <span>100 milers - Total Check-Ins: {{ @item.c  }}</span><br />
-	</repeat>
-	</p>
-
-
+	

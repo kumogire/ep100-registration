@@ -1,4 +1,4 @@
-	<h2>Rider Lookup</h2>
+	<h2>Rider Check-in</h2>
 	<div class="line">
 	<div class="margin-bottom">	
 	</div>

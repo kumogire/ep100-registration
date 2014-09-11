@@ -1,17 +1,17 @@
 
 
 <form class="customform" action="transferrider" method="POST">
-<repeat group="{{ @rider }}" value="{{ @item }}">
+<?php foreach (($rider?:array()) as $item): ?>
 
-<h2>Tranfer Rider - {{ @item.LastName  }}, {{ @item.FirstName  }} </h2>
+<h2>Tranfer Rider - <?php echo $item['LastName']; ?>, <?php echo $item['FirstName']; ?> </h2>
 <h3>To New Rider:</h3>
 <div class="line">
-<input type="hidden" name="TransferFrom" value="{{ @item.RiderID  }}">
+<input type="hidden" name="TransferFrom" value="<?php echo $item['RiderID']; ?>">
 <table>
 <tbody>
 <tr>
 <td><strong>First Name</strong></td><td><input type="text" name="FirstName" value=""></td>
-<td><strong>Route</strong></td><td>{{ @item.TicketType  }} <input type="hidden" name="TicketType" value="{{ @item.TicketType }}"></td>
+<td><strong>Route</strong></td><td><?php echo $item['TicketType']; ?> <input type="hidden" name="TicketType" value="<?php echo $item['TicketType']; ?>"></td>
 </tr>
 <tr>
 <td><strong>Last Name</strong></td><td><input type="text" name="LastName" value=""></td>
@@ -19,8 +19,8 @@
 </tr>
 <tr>
 <td><strong>Email</strong></td><td><input type="text" name="Email" value=""></td>
-<td><strong>Confirmation</strong></td><td>{{ @item.OrderNum  }}</td>
-<input type="hidden" name="OrderNum" value="{{ @item.OrderNum  }}">
+<td><strong>Confirmation</strong></td><td><?php echo $item['OrderNum']; ?></td>
+<input type="hidden" name="OrderNum" value="<?php echo $item['OrderNum']; ?>">
 </tr>
 <tr>
 <td><strong>Emergency Contact</strong></td><td><input type="text" name="EmergencyContact" value=""></td>
@@ -59,7 +59,7 @@
 </tbody>
 </table>
 </div>
-</repeat>
+<?php endforeach; ?>
 <div class="s-12 l-4 right "><button type="submit">Create Transfer</button></div>
 
 </form>
