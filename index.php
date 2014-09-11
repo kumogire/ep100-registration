@@ -212,6 +212,32 @@ $f3->set('rider',$rider);
 );
 
 
+
+
+//RIDER TRANSFER VIEW
+
+$f3->route('GET /transfer/@RiderID',
+
+	function($f3) {
+
+	$db = $f3->get('DB');
+	$RiderID = $f3->get('PARAMS.RiderID');
+
+$redit=new DB\SQL\Mapper($f3->get('DB'),'registrations');
+$filter = ' RiderID = "'.$RiderID.'%"';
+    
+$rider=$redit->find($filter);
+$f3->set('rider',$rider);
+
+	$template=new Template;
+	echo $template->render('header.htm');
+    echo $template->render('transfer.htm');
+	echo $template->render('footer.htm');
+	}
+);
+
+
+
 //UPDATE GROUP FUNCTIONALITY (STATUS 1)
 
 $f3->route('POST /updategroup',
@@ -285,17 +311,22 @@ $f3->route('POST|HEAD /transferrider',
 function($f3) {
 
 	$db = $f3->get('DB');
-	$RiderID = $f3->get('POST.RiderID');
-
-if($f3->exists('POST.RiderID'))
-    {
+	$OLDRiderID = $f3->get('POST.TransferFrom');
+	
+	//CREATE NEW RECORD
+	
 	$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
-	$f3->get('rider')->load(array('RiderID=?',$f3->get('POST.RiderID')));
 	$f3->get('rider')->copyFrom('POST');
-	$f3->get('rider')->update(); 
-	$f3->get('rider')->save();  
+	$f3->get('rider')->save(); 
+	$lastInsertedID = $f3->get('rider')->get('_id');
+	
+	//UPDATE OLD RECORD
+
+if($f3->exists('POST.TransferFrom'))
+    {
+	$db->exec('UPDATE registrations SET TransferTo = "'.$lastInsertedID.'" WHERE RiderID = "'.$OLDRiderID.'"');  
 	//echo $db->log();
-$f3->reroute('/home/3');
+$f3->reroute('/home/4');
     }
 	
 	}

@@ -3,7 +3,9 @@
 <form class="customform" action="updaterider" method="POST">
 <repeat group="{{ @rider }}" value="{{ @item }}">
 
-<h2>Rider Details - {{ @item.LastName  }}, {{ @item.FirstName  }} </h2>
+<h2>Rider Details - {{ @item.LastName  }}, {{ @item.FirstName  }} 
+<F3:check if="{{ @item.TransferFrom != '' }}"> *Transfer*</F3:check>
+<F3:check if="{{ @item.TransferTo != '' }}"> *Ticket Transfered*</F3:check></h2>
 <F3:check if="{{ @item.CheckinDate <> '0000-00-00 00:00:00' }}">
 <div class="line left">
 	<div class="margin-bottom">
@@ -83,8 +85,24 @@
 </td>
 </tr>
 <tr>
-<td><strong>Transferred?</strong></td><td>{{ @item.TransferTo  }}</td>
-<td><strong>Transferee?</strong></td><td>{{ @item.TransferFrom  }}</td>
+<td><strong>Transferred?</strong></td>
+<F3:check if="{{ @item.TransferTo != '' }}">
+    <F3:true>
+<td><a href="details/{{ @item.TransferTo  }}">Ticket Transferred To -></a></td>
+    </F3:true>
+	<F3:false>
+<td>&nbsp;</td>
+    </F3:false>
+</F3:check>
+<td><strong>Transferee?</strong></td>
+<F3:check if="{{ @item.TransferFrom != '' }}">
+    <F3:true>
+ <td><a href="details/{{ @item.TransferFrom  }}">Ticket Transferred From -></a></td>
+    </F3:true>
+    <F3:false>
+<td>&nbsp;</td>
+    </F3:false>
+</F3:check>
 </tr>
 <tr>
 <td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>

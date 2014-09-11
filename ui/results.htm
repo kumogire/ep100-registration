@@ -23,7 +23,16 @@
 
 
 <tr>
-<td><input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}"><input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}"></td>
+<td>
+<F3:check if="{{ @item.TransferTo != '' }}">
+    <F3:true>
+*****
+	</F3:true>
+    <F3:false>
+<input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}">
+    </F3:false>
+</F3:check>
+<input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}"></td>
 <td><a href="details/{{ @item.RiderID  }}">{{ @item.OrderNum  }}</a></td>
 <td>{{ @item.TicketType  }}</td>
 <td>{{ @item.LastName  }}</td>
@@ -55,7 +64,14 @@
     </F3:false>
 </F3:check>
 </td>
+<F3:check if="{{ @item.TransferTo != '' }}">
+    <F3:true>
+ <td><a href="details/{{ @item.TransferTo  }}">Transferred</a></td>
+    </F3:true>
+    <F3:false>
 <td><a href="transfer/{{ @item.RiderID  }}"><i class="icon-random icon2x right padding" alt="Transfer"></i></a></td>
+    </F3:false>
+</F3:check>
 <td><a href="details/{{ @item.RiderID  }}"><i class="icon-share icon2x right padding" alt="Edit Rider"></i></a></td>
 </tr>
 </repeat>

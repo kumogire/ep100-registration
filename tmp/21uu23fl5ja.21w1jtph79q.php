@@ -23,7 +23,16 @@
 
 
 <tr>
-<td><input type="text" name="BibNumber[]" value="<?php echo $item['BibNumber']; ?>"><input type="hidden" name="RiderID[]" value="<?php echo $item['RiderID']; ?>"></td>
+<td>
+<?php if ($item['TransferTo'] != ''): ?>
+    
+*****
+	
+    <?php else: ?>
+<input type="text" name="BibNumber[]" value="<?php echo $item['BibNumber']; ?>">
+    
+<?php endif; ?>
+<input type="hidden" name="RiderID[]" value="<?php echo $item['RiderID']; ?>"></td>
 <td><a href="details/<?php echo $item['RiderID']; ?>"><?php echo $item['OrderNum']; ?></a></td>
 <td><?php echo $item['TicketType']; ?></td>
 <td><?php echo $item['LastName']; ?></td>
@@ -55,7 +64,14 @@
     
 <?php endif; ?>
 </td>
+<?php if ($item['TransferTo'] != ''): ?>
+    
+ <td><a href="details/<?php echo $item['TransferTo']; ?>">Transferred</a></td>
+    
+    <?php else: ?>
 <td><a href="transfer/<?php echo $item['RiderID']; ?>"><i class="icon-random icon2x right padding" alt="Transfer"></i></a></td>
+    
+<?php endif; ?>
 <td><a href="details/<?php echo $item['RiderID']; ?>"><i class="icon-share icon2x right padding" alt="Edit Rider"></i></a></td>
 </tr>
 <?php endforeach; ?>
