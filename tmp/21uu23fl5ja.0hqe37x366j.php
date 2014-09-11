@@ -20,27 +20,27 @@
 
 </form>
 <div class="line">
-<F3:check if="{{@message}}">
+<?php if ($message): ?>
 	<div class="line center">
 		<div class="margin-bottom">
-			<div class="s-12 l-4 center"><strong>{{@message}}</strong></div>
+			<div class="s-12 l-4 center"><strong><?php echo $message; ?></strong></div>
 		</div>
 	</div>
-</F3:check>
+<?php endif; ?>
 <div class="margin-bottom">
 <div class="s-12 l-4">
-	<repeat group="{{ @totalriders }}" value="{{ @item }}">
-    <span>Total Registrations: {{ @item.r  }}</span><br />
-	</repeat>
+	<?php foreach (($totalriders?:array()) as $item): ?>
+    <span>Total Registrations: <?php echo $item['r']; ?></span><br />
+	<?php endforeach; ?>
 </div>
 </div>
 </div>
 <div class="line">
 <div class="margin">
 <div class="s-12 l-4">
-	<repeat group="{{ @totalriderschecked }}" value="{{ @item }}">
-    <span>Total Check-Ins: {{ @item.c  }}</span><br />
-	</repeat>
+	<?php foreach (($totalriderschecked?:array()) as $item): ?>
+    <span>Total Check-Ins: <?php echo $item['c']; ?></span><br />
+	<?php endforeach; ?>
 </div>
 </div>
 </div>

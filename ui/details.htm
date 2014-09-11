@@ -21,7 +21,7 @@
 <F3:check if="{{ @item.NewRider == 'Yes' }}">
 <div class="line left">
 	<div class="margin-bottom">
-		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION</strong></div>
+		<div class="s-12 l-4 left"><strong>NEW RIDER REGISTRATION (On-site)</strong></div>
 	</div>
 </div>
 </F3:check>
@@ -51,7 +51,36 @@
 </tr>
 <tr>
 <td><strong>Waiver</strong></td><td>{{ @item.Waiver  }}</td>
-<td><strong>Past Rides</strong></td><td>{{ @item.2011Rider  }}  {{ @item.2012Rider  }}  {{ @item.2013Rider  }}</td>
+
+
+
+<td><strong>Past Rides</strong></td><td>
+<F3:check if="{{ @item.2011Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2011Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2011Rider = '2011' }}
+    </F3:false>
+</F3:check>
+<F3:check if="{{ @item.2012Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2012Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2012Rider = '2012' }}
+    </F3:false>
+</F3:check>
+<F3:check if="{{ @item.2013Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2013Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2013Rider = '2013' }}
+    </F3:false>
+</F3:check>
+
+</td>
 </tr>
 <tr>
 <td><strong>Transferred?</strong></td><td>{{ @item.TransferTo  }}</td>

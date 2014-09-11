@@ -27,8 +27,8 @@ a, a:link, a:visited, a:hover, a:active {
   color:#444;
 	}
 img {
-	height:auto;
-	width:100%;
+	/*height:auto;
+	width:100%;*/
 	}
 table {
 	background:none repeat scroll 0 0 #fff;

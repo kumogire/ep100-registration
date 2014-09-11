@@ -1,9 +1,8 @@
 <h2>Search Results for "{{ @search }}"</h2>
-<h4>{{ @count }} records returned</h4>
 <form class="customform" action="updategroup" method="POST">
 
 <div class="line">
-<div class="s-12 l-4 right "><button type="submit">Check In Guests</button></div>
+
 <table>
 <thead>
 <tr>
@@ -21,14 +20,13 @@
 <tbody>
 <repeat group="{{ @result }}" value="{{ @item }}">
 
-
 <tr>
-<td><input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}"><input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}"></td>
+<td>{{ @item.BibNumber  }}</td>
 <td><a href="details/{{ @item.RiderID  }}">{{ @item.OrderNum  }}</a></td>
 <td>{{ @item.TicketType  }}</td>
 <td>{{ @item.LastName  }}</td>
 <td>{{ @item.FirstName  }}</td>
-<td><input type="text" name="Email[]" value="{{ @item.Email  }}"></td>
+<td>{{ @item.Email  }}</td>
 <td>
 <F3:check if="{{ @item.2011Rider == 'No' }}">
     <F3:true>
