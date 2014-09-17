@@ -161,28 +161,32 @@ $f3->route('GET /stats',
 	$db = $f3->get('DB');
 
 //10 miler stats
-$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 10 Mile"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 10 Mile%"');
 $t10m = count($rows);
-$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 10 Mile"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 10 Mile%"');
 $t10mcheck = count($rows);
 $percent10m = round(($t10mcheck/$t10m)*100)." %";
 
 //50 miler stats
-$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 50 Mile"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 50 Mile%"');
 $t50m = count($rows);
-$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 50 Mile"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 50 Mile%"');
 $t50mcheck = count($rows);
 $percent50m = round(($t50mcheck/$t50m)*100)." %";
 
 //100 miler stats
-$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType = "EP100 150K (93.2 miles)"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 150K (93.2 miles)%"');
 $t100m = count($rows);
-$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType = "EP100 150K (93.2 miles)"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 150K (93.2 miles)%"');
 $t100mcheck = count($rows);
 $percent100m = round(($t100mcheck/$t100m)*100)." %";
 
+//Riders Checked In Before Checkin Dates
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") <= "9-18-14" and BibNumber IS NOT NULL ');
+$totalbefore = count($rows);
+
 //Riders Checked In on Friday
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-11-14" and BibNumber IS NOT NULL ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-19-14" and BibNumber IS NOT NULL ');
 $totalfri = count($rows);
 
 //Riders Checked In on Saturday
@@ -204,6 +208,7 @@ $totalsun = count($rows);
 		$f3->set('r10c',$t10mcheck);
 		$f3->set('r50c',$t50mcheck);
 		$f3->set('r100c',$t100mcheck);
+		$f3->set('tbe',$totalbefore);
 		$f3->set('tfri',$totalfri);
 		$f3->set('tsat',$totalsat);
 		$f3->set('tsun',$totalsun);
