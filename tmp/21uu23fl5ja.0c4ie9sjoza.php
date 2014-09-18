@@ -41,7 +41,7 @@ var input = document.getElementById("id").focus();
 		<p class="nav-text">Custom menu text</p> 
 		<div class="top-nav s-12 l-10">
 		  <ul>
-			<li><a href="">Home</a></li>
+			<li><a href="">Check-In</a></li>
 			<li><a href="<?php echo $BASE.'/'.'stats'; ?>">Stats</a></li>
 			<li><a href="<?php echo $BASE.'/'.'bibsearch'; ?>">Find by Bib Number</a></li>
 		  </ul>

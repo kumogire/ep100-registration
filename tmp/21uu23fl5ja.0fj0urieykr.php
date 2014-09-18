@@ -1,28 +1,39 @@
-	<h2>Rider Stats</h2>
+	<h2>2014 Rider Stats</h2>
+
+<table>
+<tbody>
+<tr>
+<td><h3>100 mile</h3></td>
+<td><h3>50 mile</h3></td>
+<td><h3>10 mile</h3></td>
+</tr>
+<tr>
+<td><h3><?php echo $p100; ?> Checked-In</h3></td>
+<td><h3><?php echo $p50; ?> Checked-In</h3></td>
+<td><h3><?php echo $p10; ?> Checked-In</h3></td>
+</tr>
+<tr>
+<td><?php echo $r100r; ?> Total Registered</td>
+<td><?php echo $r50r; ?> Total Registered</td>
+<td><?php echo $r10r; ?> Total Registered</td>
+</tr>
+<tr>
+<td><?php echo $r100c; ?> Total Checked</td>
+<td><?php echo $r50c; ?> Total Checked</td>
+<td><?php echo $r10c; ?> Total Checked</td>
+</tr>
+<tr>
+<td colspan="3">
+<h3>Check-ins by Day</h3>
+<ul>
+<li>Pre-Checkin (before 9/19/2014): <?php echo $tbe; ?></li>
+<li>Friday (9/19/2014): <?php echo $tfri; ?></li>
+<li>Saturday (9/20/2014): <?php echo $tsat; ?></li>
+<li>Sunday (9/21/2014): <?php echo $tsun; ?></li>
+</u>
+</td>
+</tr>
+</tbody>
+</table>
 	
-	<p><?php foreach (($total10mi?:array()) as $item): ?>
-    <span>10 milers - Total Registrations: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-	<p><?php foreach (($total10michecked?:array()) as $item): ?>
-    <span>10 milers - Total Check-Ins: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-	<p><?php foreach (($total50mi?:array()) as $item): ?>
-    <span>50 milers - Total Registrations: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-	<p><?php foreach (($total50michecked?:array()) as $item): ?>
-    <span>50 milers - Total Check-Ins: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-	<p><?php foreach (($total100mi?:array()) as $item): ?>
-    <span>100 milers - Total Registrations: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-	<p><?php foreach (($total100michecked?:array()) as $item): ?>
-    <span>100 milers - Total Check-Ins: <?php echo $item['c']; ?></span><br />
-	<?php endforeach; ?>
-	</p>
-
-
+	

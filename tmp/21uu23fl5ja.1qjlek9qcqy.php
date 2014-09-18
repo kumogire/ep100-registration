@@ -32,6 +32,9 @@
 <table>
 <tbody>
 <tr>
+<td><strong>Confirmation</strong></td><td colspan="3"><?php echo $item['OrderNum']; ?></td>
+</tr>
+<tr>
 <td><strong>First Name</strong></td><td><input type="text" name="FirstName" value="<?php echo $item['FirstName']; ?>"></td>
 <td><strong>Route</strong></td><td><?php echo $item['TicketType']; ?></td>
 </tr>
@@ -41,7 +44,7 @@
 </tr>
 <tr>
 <td><strong>Email</strong></td><td><input type="text" name="Email" value="<?php echo $item['Email']; ?>"></td>
-<td><strong>Confirmation</strong></td><td><?php echo $item['OrderNum']; ?></td>
+<td><strong>Cell Phone</strong></td><td><?php echo $item['CellPhone']; ?></td>
 </tr>
 <tr>
 <td><strong>Emergency Contact</strong></td><td><input type="text" name="EmergencyContact" value="<?php echo $item['EmergencyContact']; ?>"></td>
@@ -105,6 +108,7 @@
 <?php endif; ?>
 </tr>
 <tr>
+
 <td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>
 </tr>
 </tbody>

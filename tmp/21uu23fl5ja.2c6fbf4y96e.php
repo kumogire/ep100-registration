@@ -24,13 +24,8 @@
 </tr>
 <tr>
 <td><strong>Email</strong></td><td><input type="text" name="Email" value=""></td>
-<td><strong>Waiver</strong></td>
-<td>
-<select name="Waiver">
-<option value="Yes">Yes</option>
-<option value="No">No</option>
-</select>
-</td>
+<td><strong>Cell Phone</strong></td>
+<td><input type="text" name="CellPhone" value=""></td>
 </tr>
 <tr>
 <td><strong>Emergency Contact</strong></td><td><input type="text" name="EmergencyContact" value=""></td>
@@ -48,6 +43,15 @@
 <td><strong>Rotarian?</strong></td>
 <td>
 <select name="Rotarian">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><strong>Waiver</strong></td>
+<td colspan="3">
+<select name="Waiver">
 <option value="Yes">Yes</option>
 <option value="No">No</option>
 </select>
