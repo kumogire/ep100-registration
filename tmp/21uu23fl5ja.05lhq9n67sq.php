@@ -10,8 +10,13 @@
 <table>
 <tbody>
 <tr>
+<td><strong>Confirmation</strong></td><td colspan="3"><?php echo $item['OrderNum']; ?></td>
+<input type="hidden" name="OrderNum" value="<?php echo $item['OrderNum']; ?>">
+</tr>
+</tr>
+<tr>
 <td><strong>First Name</strong></td><td><input type="text" name="FirstName" value=""></td>
-<td><strong>Route</strong></td><td><?php echo $item['TicketType']; ?></td>
+<td><strong>Route</strong></td><td><?php echo $item['TicketType']; ?> <input type="hidden" name="TicketType" value="<?php echo $item['TicketType']; ?>"></td>
 </tr>
 <tr>
 <td><strong>Last Name</strong></td><td><input type="text" name="LastName" value=""></td>
@@ -19,8 +24,7 @@
 </tr>
 <tr>
 <td><strong>Email</strong></td><td><input type="text" name="Email" value=""></td>
-<td><strong>Confirmation</strong></td><td><?php echo $item['OrderNum']; ?></td>
-<input type="hidden" name="OrderNum" value="<?php echo $item['OrderNum']; ?>">
+<td><strong>Cell Phone</strong></td><td><input type="text" name="CellPhone" value=""></td>
 </tr>
 <tr>
 <td><strong>Emergency Contact</strong></td><td><input type="text" name="EmergencyContact" value=""></td>

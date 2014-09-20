@@ -26,7 +26,7 @@
 <td>
 <?php if ($item['TransferTo'] != ''): ?>
     
-*****
+***** <input type="hidden" name="BibNumber[]" value="">
 	
     <?php else: ?>
 <input type="text" name="BibNumber[]" value="<?php echo $item['BibNumber']; ?>">

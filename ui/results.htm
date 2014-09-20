@@ -26,7 +26,7 @@
 <td>
 <F3:check if="{{ @item.TransferTo != '' }}">
     <F3:true>
-*****
+***** <input type="hidden" name="BibNumber[]" value="">
 	</F3:true>
     <F3:false>
 <input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}">

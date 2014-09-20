@@ -40,8 +40,8 @@ $f3->route('GET /home/@status',
 	$f3->set('message', '');
 	}
 	
-$f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations'));
-$f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL'));
+$f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations WHERE TransferFrom IS NULL'));
+$f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND BibNumber <>""'));
 	$template=new Template;
 	echo $template->render('header.htm');
     echo $template->render('search.htm');
@@ -182,11 +182,11 @@ $t100mcheck = count($rows);
 $percent100m = round(($t100mcheck/$t100m)*100)." %";
 
 //Riders Checked In Before Checkin Dates
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") <= "9-18-14" and BibNumber IS NOT NULL ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") <= "9-18-14" and (BibNumber IS NOT NULL AND BibNumber <> "") ');
 $totalbefore = count($rows);
 
 //Riders Checked In on Friday
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-19-14" and BibNumber IS NOT NULL ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-19-14" and BibNumber IS NOT NULL');
 $totalfri = count($rows);
 
 //Riders Checked In on Saturday
@@ -333,6 +333,8 @@ function($f3) {
 $BibNumber = $f3->get('POST.BibNumber');
 if($BibNumber != ""){
 $db->exec('UPDATE registrations SET BibNumber = "'.$BibNumber.'", CheckInDate = now() WHERE RiderID = "'.$lastInsertedID.'"');
+}else{
+$db->exec('UPDATE registrations SET BibNumber = NULL WHERE RiderID = "'.$lastInsertedID.'"');
 }
 	
 	//echo $db->log();
@@ -383,6 +385,8 @@ function($f3) {
 $BibNumber = $f3->get('POST.BibNumber');
 if($BibNumber != ""){
 $db->exec('UPDATE registrations SET BibNumber = "'.$BibNumber.'", CheckInDate = now() WHERE RiderID = "'.$lastInsertedID.'"');
+}else{
+$db->exec('UPDATE registrations SET LastUpdate = now() WHERE RiderID = "'.$lastInsertedID.'"');
 }
 	
 	//UPDATE OLD RECORD
