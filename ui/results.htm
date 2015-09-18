@@ -63,6 +63,14 @@
         {{ @item.2013Rider = '2013' }}
     </F3:false>
 </F3:check>
+<F3:check if="{{ @item.2014Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2014Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2014Rider = '2014' }}
+    </F3:false>
+</F3:check>
 </td>
 <F3:check if="{{ @item.TransferTo != '' }}">
     <F3:true>

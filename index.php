@@ -400,7 +400,7 @@ $f3->reroute('/home/4');
 	
 	}
 );
-
+//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2014 EP100$f3->route('GET /2014rider',function($f3) {	$db = $f3->get('DB');	$i = 0;	//GET LIST OF 2014 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper    $pastrider->next();} 		});
 
 //ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2011 EP100
 
@@ -411,7 +411,7 @@ function($f3) {
 	$i = 0;
 	
 //GET LIST OF 2011 RIDERS
-$pastrider=new \DB\SQL\Mapper($db,'mc-2011riders');
+$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');
 $pastrider->load('');
 while(!$pastrider->dry()) {
 
@@ -421,7 +421,7 @@ $filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND Fir
 $matches=$riders->find($filter);
 
 foreach($matches as $match)
-$db->exec('UPDATE registrations SET 2011Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');
+$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');
   //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper
   
   $pastrider->next();
@@ -494,6 +494,6 @@ $db->exec('UPDATE registrations SET 2013Rider = "Yes" WHERE RiderID = "'.$match-
  
 	
 	}
-);//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2014 EP100$f3->route('GET /2014rider',function($f3) {	$db = $f3->get('DB');	$i = 0;//GET LIST OF 2013 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper  $pastrider->next();}	});
+);
 
 $f3->run();
