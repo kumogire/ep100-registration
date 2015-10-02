@@ -2,7 +2,66 @@
 
 <form class="customform" action="updaterider" method="POST">
 <repeat group="{{ @rider }}" value="{{ @item }}">
+<F3:check if="{{ @item.Volunteer == '1' }}">
+<F3:true>
+<h2>Volunteer Details - {{ @item.LastName  }}, {{ @item.FirstName  }} </h2>
+<F3:check if="{{ @item.CheckinDate <> '0000-00-00 00:00:00' }}">
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Check In Date/Time: {{ @item.CheckinDate  }}</strong></div>
+	</div>
+</div>
+</F3:check>
+<F3:check if="{{ @item.LastUpdate <> '' }}">
+<div class="line left">
+	<div class="margin-bottom">
+		<div class="s-12 l-4 left"><strong>Last Updated: {{ @item.LastUpdate  }}</strong></div>
+	</div>
+</div>
+</F3:check>
+<div class="line">
+<input type="hidden" name="RiderID" value="{{ @item.RiderID  }}">
+<table>
+<tbody>
+<tr>
+<td><strong>First Name</strong></td><td><input type="text" name="FirstName" value="{{ @item.FirstName  }}"></td>
+<td><strong>Shirt Size</strong></td><td>{{ @item.ShirtSize  }}</td>
+</tr>
+<tr>
+<td><strong>Last Name</strong></td><td><input type="text" name="LastName" value="{{ @item.LastName  }}"></td>
+<td><strong>Checked In</strong></td>
+<td>
+<select name="VolCheck">
+  <option value="0" <F3:check if="{{ @item.VolCheck == '0'  }}"><F3:true>selected</F3:true></F3:check> > --- </option>
+  <option value="1" <F3:check if="{{ @item.VolCheck == '1'  }}"><F3:true>selected</F3:true></F3:check> > Checked In </option>
+</select>
+</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td><td><input type="text" name="Email" value="{{ @item.Email  }}"></td>
+<td><strong>Cell Phone</strong></td><td>{{ @item.CellPhone  }}</td>
+</tr>
+<tr>
+<td><strong>Emergency Contact</strong></td><td><input type="text" name="EmergencyContact" value="{{ @item.EmergencyContact  }}"></td>
+<td><strong>&nbsp;</strong></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Emergency Number</strong></td><td><input type="text" name="EmergencyNumber" value="{{ @item.EmergencyNumber  }}"></td>
+<td><strong>Rotarian?</strong></td><td>{{ @item.Rotarian  }}</td>
+</tr>
+<tr>
+<td><strong>Waiver</strong></td><td>{{ @item.Waiver  }}</td>
+<td><strong>&nbsp;</strong></td><td>&nbsp;</td>
+</tr>
+<tr>
 
+<td><strong>Notes</strong></td><td colspan="3"><textarea name="RiderNotes"></textarea></td>
+</tr>
+</tbody>
+</table>
+</div>
+</F3:true>
+<F3:false>
 <h2>Rider Details - {{ @item.LastName  }}, {{ @item.FirstName  }} 
 <F3:check if="{{ @item.TransferFrom != '' }}"> *Transfer*</F3:check>
 <F3:check if="{{ @item.TransferTo != '' }}"> *Ticket Transfered*</F3:check></h2>
@@ -114,7 +173,9 @@
 </tbody>
 </table>
 </div>
+</F3:false>
+</F3:check>
 </repeat>
-<div class="s-12 l-4 right "><button type="submit">Update Rider Information</button></div>
+<div class="s-12 l-4 right "><button type="submit">Update Rider/Volunteer Information</button></div>
 
 </form>

@@ -1,5 +1,4 @@
 <?php
-
 $f3=require('lib/base.php');
 $f3->set('DEBUG',1);
 $f3->config('config.ini');
@@ -16,9 +15,7 @@ $f3->route('GET /',
 $f3->reroute('/home/0');
 	}
 );
-
-
-
+$f3->route('GET /volunteergroups',	function($f3) {	$template=new Template;		echo $template->render('header.htm');				echo $template->render('volunteergroups.htm');		echo $template->render('footer.htm');	});
 //DEFAULT SEARCH FORM VIEW(HOME)
 
 $f3->route('GET /home/@status',
@@ -40,8 +37,8 @@ $f3->route('GET /home/@status',
 	$f3->set('message', '');
 	}
 	
-$f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations WHERE TransferFrom IS NULL'));
-$f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND BibNumber <>""'));
+$f3->set('totalriders',$db->exec('SELECT count(LastName) r FROM registrations WHERE TransferFrom IS NULL AND Volunteer = "0"'));
+$f3->set('totalriderschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE BibNumber IS NOT NULL AND BibNumber <>""'));$f3->set('totalvols',$db->exec('SELECT count(LastName) c FROM registrations WHERE Volunteer = "1" AND VolCheck = "0"'));$f3->set('totalvolschecked',$db->exec('SELECT count(LastName) c FROM registrations WHERE Volunteer = "1" AND VolCheck = "1"'));
 	$template=new Template;
 	echo $template->render('header.htm');
     echo $template->render('search.htm');
@@ -82,7 +79,7 @@ $f3->route('POST /results',
 		$filter = '  OrderNum LIKE "'.$onum.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ';
 		//CAN ADD LIMIT PARAM TO OPTION ARRAY, REMEMBER COMMA AFTER ORDER LINE
 		$option = array(
-            'order' => 'TicketType, LastName ASC'
+            'order' => 'TicketType DESC, LastName ASC'
 		);   
 		$resultset=$riders->find($filter,$option);
 		//HOW MANY RESULTS?
@@ -100,7 +97,7 @@ $f3->route('POST /results',
 		echo $template->render('footer.htm');
 	}
 );
-
+/*$f3->route('GET /volunteergroups',	function($f3) {	//IF YOU WANT TO GET VALUES FROM SEF URL	//$f3->route('GET /results/@id',	//$search = $f3->get('PARAMS.id');	//BACK TO HOME URL VALUE <-- NOT REALLY SURE WHY THIS DOESN'T WORK	//$f3->set('home',$f3->get('BASE'));	//ASSIGN POST PARAMETERS TO SEARCH VAR	$search = $f3->get('POST.id');		$db = $f3->get('DB');		//SET VAR VALUE EXAMPLE		//$f3->set('name','world');		//CREATE QUERY AND ASSIGN TO DATA SET - OLD WAY		//$f3->set('result',$db->exec('SELECT RiderID, OrderNum, BibNumber, FirstName, LastName, TicketType, Email, 2011Rider, 2012Rider, 2013Rider FROM registrations WHERE OrderNum LIKE "'.$search.'%" OR LastName LIKE "'.$search.'%" OR FirstName LIKE "'.$search.'%" ORDER BY TicketType, LastName ASC '));		$onum = substr($search,0,9);		//echo $onum;		//CREATE QUERY AND ASSIGN TO DATA SET				$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');		$filter = '  Volunteer = "1" ';		//CAN ADD LIMIT PARAM TO OPTION ARRAY, REMEMBER COMMA AFTER ORDER LINE		$option = array(            'order' => 'VolGroup ASC ',			'group' => 'VolGroup'		);   		$resultset=$riders->find($filter,$option);		//GET NUMBER OF VOLUNTEERS BY GROUP$volnum = array();while(!$riders->dry()) {$volunteers=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  Volunteer = "1" ';		$option = array(            'order' => 'VolGroup ASC ',			'group' => 'VolGroup'		); $vnums=$volunteers->find($filter,$option);$i == 1;foreach($vnums as $vnum)$rows=$db->exec('SELECT RiderID FROM registrations WHERE VolGroup = "'.$vnum->VolGroup.'"');	$volnum[] = count($rows);		$i++;	   //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper  $volunteers->next();}					//GET # of Volunteers Checked IN						//HOW MANY RESULTS?		$count = count($resultset);		$f3->set('count',$count);		//SET QUERY VAR		$f3->set('search',$search);		$f3->set('result',$resultset);		$f3->set('volnum',$volnum);				//BUILD DISPLAY TEMPLATES		$template=new Template;		echo $template->render('header.htm');        echo $template->render('volunteergroups.htm');		echo $template->render('footer.htm');	});*/
 
 
 //SEARCH BY BIB NUMBER VIEW
@@ -294,9 +291,9 @@ function($f3) {
 	$db = $f3->get('DB');
 
 $R = $f3->get('POST.RiderID');
-$B = $f3->get('POST.BibNumber');
+$B = $f3->get('POST.BibNumber');$V = $f3->get('POST.VolCheck');
 $E = $f3->get('POST.Email');
-$i = 0;
+$i = 0;$x = 0;
 
 //$f3->set('rider',new DB\SQL\Mapper($f3->get('DB'),'registrations'));
 
@@ -308,9 +305,7 @@ $exists = count($rows);
 if($exists == 0){
 $db->exec('UPDATE registrations SET BibNumber = "'.$B[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');
 }
-}
-$i++;
-}
+}if($V[$i] != '0'){$db->exec('UPDATE registrations SET VolCheck = "'.$V[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');}/*if($V[$i] != '0'){//CHECK TO SEE IF THE VOLUNTEER HAS BEEN CHECKED IN ALREADY$rows=$db->exec('SELECT VolCheck FROM registrations WHERE RiderID = "'.$R[$i].'"');$exists = count($rows);if($exists == 1){$db->exec('UPDATE registrations SET VolCheck = "'.$V[$i].'", Email = "'.$E[$i].'", CheckInDate = now() WHERE RiderID = "'.$value.'"');}}*/$i++;}
 
 $f3->reroute('/home/1');
 	}

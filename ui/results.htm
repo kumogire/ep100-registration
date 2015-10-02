@@ -24,17 +24,37 @@
 
 <tr>
 <td>
-<F3:check if="{{ @item.TransferTo != '' }}">
+
+<F3:check if="{{ @item.TransferTo != '' }} || {{ @item.Volunteer != '0' }}">
     <F3:true>
-***** <input type="hidden" name="BibNumber[]" value="">
+		<F3:check if="{{ @item.Volunteer == '1' }}">
+		<F3:true>
+<select name="VolCheck[]">
+  <option value="0" <F3:check if="{{ @item.VolCheck == '0'  }}"><F3:true>selected</F3:true></F3:check> > --- </option>
+  <option value="1" <F3:check if="{{ @item.VolCheck == '1'  }}"><F3:true>selected</F3:true></F3:check> > Checked In </option>
+</select>
+		<input type="hidden" name="BibNumber[]" value="">
+		</F3:true>
+		<F3:false>
+		***** <input type="hidden" name="VolCheck[]" value="0"><input type="hidden" name="BibNumber[]" value="">
+		</F3:false>
+		</F3:check>
 	</F3:true>
     <F3:false>
-<input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}">
+<input type="hidden" name="VolCheck[]" value="0"><input type="text" name="BibNumber[]" value="{{ @item.BibNumber  }}">
     </F3:false>
 </F3:check>
+
 <input type="hidden" name="RiderID[]" value="{{ @item.RiderID  }}"></td>
+<F3:check if="{{ @item.Volunteer == '1' }}">
+<F3:false>
 <td><a href="details/{{ @item.RiderID  }}">{{ @item.OrderNum  }}</a></td>
 <td>{{ @item.TicketType  }}</td>
+</F3:false>
+<F3:true>
+<td colspan="2">Volunteer</td>
+</F3:true>
+</F3:check>
 <td>{{ @item.LastName  }}</td>
 <td>{{ @item.FirstName  }}</td>
 <td><input type="text" name="Email[]" value="{{ @item.Email  }}"></td>

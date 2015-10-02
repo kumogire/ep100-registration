@@ -1,4 +1,4 @@
-<h2>Add New Rider</h2>
+<h2>Add New Rider/Volunteer</h2>
 
 <form class="customform" action="addrider" method="POST">
 <input type="hidden" name="NewRider" value="Yes">
@@ -50,10 +50,17 @@
 </tr>
 <tr>
 <td><strong>Waiver</strong></td>
-<td colspan="3">
+<td>
 <select name="Waiver">
 <option value="Yes">Yes</option>
 <option value="No">No</option>
+</select>
+</td>
+<td><strong>Volunteer</strong></td>
+<td>
+<select name="Volunteer">
+<option value="0">No</option>
+<option value="1">Yes</option>
 </select>
 </td>
 </tr>
@@ -64,6 +71,6 @@
 </table>
 </div>
 
-<div class="s-12 l-4 right "><button type="submit">Add Rider </button></div>
+<div class="s-12 l-4 right "><button type="submit">Add Rider/Volunteer </button></div>
 
 </form>

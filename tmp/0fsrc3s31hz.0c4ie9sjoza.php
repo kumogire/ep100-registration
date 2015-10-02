@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="text/html; charset=windows-1250">
   <meta name="viewport" content="width=device-width" />
   <base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
-  <title><?php echo $PACKAGE; ?> 2015 Edible Pedal 100 Check In</title>
+  <title>2015 Edible Pedal 100 Check In</title>
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsee.css">  
   <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
@@ -29,7 +29,7 @@ var input = document.getElementById("id").focus();
   	<div class="line">
 	
 	  <div class="box">
-	  		<img src="{{ @BASE.'/ui/images/' }}eplogo.png" width="375" height="100" style="float:right" />
+	  		<img src="<?php echo $BASE.'/ui/images/'; ?>eplogo.png" width="375" height="100" style="float:right" />
 			<h1 style="width: 60%; margin-top: 20px">2015 Edible Pedal 100 Check In</h1>
 		</div>
 
@@ -42,9 +42,9 @@ var input = document.getElementById("id").focus();
 		<div class="top-nav s-12 l-10">
 		  <ul>
 			<li><a href="">Check-In</a></li>
-			<li><a href="{{ @BASE.'/'.'stats' }}">Stats</a></li>
-			<li><a href="{{ @BASE.'/'.'bibsearch' }}">Find by Bib Number</a></li>
-			<!-- <li><a href="{{ @BASE.'/'.'volunteergroups' }}">Volunteers</a></li> -->
+			<li><a href="<?php echo $BASE.'/'.'stats'; ?>">Stats</a></li>
+			<li><a href="<?php echo $BASE.'/'.'bibsearch'; ?>">Find by Bib Number</a></li>
+			<li><a href="<?php echo $BASE.'/'.'volunteergroups'; ?>">Volunteers</a></li>
 		  </ul>
 		</div>
 		<div class=" hide-s l-2">

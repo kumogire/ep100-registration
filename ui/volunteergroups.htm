@@ -1,0 +1,43 @@
+<h2>Volunteer Groups</h2>
+<h4>{{ @count }} records returned</h4>
+<form class="customform" action="updategroup" method="POST">
+
+<div class="line">
+<table>
+<thead>
+<tr>
+
+<td> Volunteer Group Name</td>
+<td> Volunteers</td>
+<td> Volunteers Checked In</td>
+<td> % Checked In</td>
+<!--
+<th width="100">Bib #</th>
+<th>Confirmation</th>
+<th>Route</th>
+<th>Last Name</th>
+<th>First Name</th>
+<th width="200">Email</th>
+<th>Past Rides</th>
+<th>Transfer</th>
+<th>Edit</th>
+-->
+</tr>
+</thead>
+<tbody>
+<repeat group="{{ @result }}" value="{{ @item }}">
+
+<tr>
+
+<td>{{ @item.VolGroup  }}</td>
+<td>{{ @@volnum[] }}</td>
+<td></td>
+<td></td>
+
+</repeat>
+
+</tbody>
+</table>
+
+</div>
+</form>
