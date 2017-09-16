@@ -143,6 +143,30 @@
         {{ @item.2013Rider = '2013' }}
     </F3:false>
 </F3:check>
+<F3:check if="{{ @item.2014Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2014Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2014Rider = '2014' }}
+    </F3:false>
+</F3:check>
+<F3:check if="{{ @item.2015Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2015Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2015Rider = '2015' }}
+    </F3:false>
+</F3:check>
+<F3:check if="{{ @item.2016Rider == 'No' }}">
+    <F3:true>
+        {{ @item.2016Rider = '' }}
+    </F3:true>
+    <F3:false>
+        {{ @item.2016Rider = '2016' }}
+    </F3:false>
+</F3:check>
 
 </td>
 </tr>

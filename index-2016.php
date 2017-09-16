@@ -163,14 +163,14 @@ $t10m = count($rows);
 $rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 10 Mile%"');
 $t10mcheck = count($rows);
 $percent10m = round(($t10mcheck/$t10m)*100)." %";
-//32 miler stats$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 32 Mile%"');$t32m = count($rows);$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 32 Mile%"');$t32mcheck = count($rows);$percent32m = round(($t32mcheck/$t32m)*100)." %";
-//54 miler stats
-$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 54 mile%"');
+
+//50 miler stats
+$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 50 Mile%"');
 $t50m = count($rows);
-$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 54 mile%"');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 50 Mile%"');
 $t50mcheck = count($rows);
 $percent50m = round(($t50mcheck/$t50m)*100)." %";
-//74 miler stats$rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 74 mile%"');$t74m = count($rows);$rows=$db->exec('SELECT LastName FROM registrations WHERE BibNumber IS NOT NULL AND TicketType LIKE "EP100 74 Mile%"');$t74mcheck = count($rows);$percent74m = round(($t74mcheck/$t74m)*100)." %";
+
 //100 miler stats
 $rows=$db->exec('SELECT LastName FROM registrations WHERE TicketType LIKE "EP100 150K (93.2 miles)%"');
 $t100m = count($rows);
@@ -179,31 +179,31 @@ $t100mcheck = count($rows);
 $percent100m = round(($t100mcheck/$t100m)*100)." %";
 
 //Riders Checked In Before Checkin Dates
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") <= "9-14-17" and (BibNumber IS NOT NULL AND BibNumber <> "") ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") <= "9-17-15" and (BibNumber IS NOT NULL AND BibNumber <> "") ');
 $totalbefore = count($rows);
 
 //Riders Checked In on Friday
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-15-17" and BibNumber IS NOT NULL');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-18-15" and BibNumber IS NOT NULL');
 $totalfri = count($rows);
 
 //Riders Checked In on Saturday
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-16-17" and BibNumber IS NOT NULL ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-19-15" and BibNumber IS NOT NULL ');
 $totalsat = count($rows);
 
 //Riders Checked In on Sunday
-$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-17-17" and BibNumber IS NOT NULL ');
+$rows=$db->exec('SELECT LastName FROM registrations WHERE DATE_FORMAT(CheckinDate,"%c-%e-%y") = "9-20-15" and BibNumber IS NOT NULL ');
 $totalsun = count($rows);
 
 
 		//SET QUERY VAR
-		$f3->set('p10',$percent10m);				$f3->set('p32',$percent32m);
-		$f3->set('p50',$percent50m);				$f3->set('p74',$percent74m);
+		$f3->set('p10',$percent10m);
+		$f3->set('p50',$percent50m);
 		$f3->set('p100',$percent100m);
-		$f3->set('r10r',$t10m);				$f3->set('r32r',$t32m);
-		$f3->set('r50r',$t50m);				$f3->set('r74r',$t74m);
+		$f3->set('r10r',$t10m);
+		$f3->set('r50r',$t50m);
 		$f3->set('r100r',$t100m);
-		$f3->set('r10c',$t10mcheck);				$f3->set('r32c',$t32mcheck);
-		$f3->set('r50c',$t50mcheck);				$f3->set('r74c',$t74mcheck);
+		$f3->set('r10c',$t10mcheck);
+		$f3->set('r50c',$t50mcheck);
 		$f3->set('r100c',$t100mcheck);
 		$f3->set('tbe',$totalbefore);
 		$f3->set('tfri',$totalfri);
@@ -395,7 +395,7 @@ $f3->reroute('/home/4');
 	
 	}
 );
-//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2016 EP100$f3->route('GET /2016rider',function($f3) {	$db = $f3->get('DB');	$i = 0;	//GET LIST OF 2015 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2016riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2016Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper    $pastrider->next();} 		});//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2015 EP100$f3->route('GET /2015rider',function($f3) {	$db = $f3->get('DB');	$i = 0;	//GET LIST OF 2015 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2015riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2015Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper    $pastrider->next();} 		});//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2014 EP100$f3->route('GET /2014rider',function($f3) {	$db = $f3->get('DB');	$i = 0;	//GET LIST OF 2014 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper    $pastrider->next();} 		});
+//ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2014 EP100$f3->route('GET /2014rider',function($f3) {	$db = $f3->get('DB');	$i = 0;	//GET LIST OF 2014 RIDERS$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');$pastrider->load('');while(!$pastrider->dry()) {$riders=new DB\SQL\Mapper($f3->get('DB'),'registrations');$filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND FirstName = "'.str_replace('"', "", $pastrider->FirstName).'" ';//$resultset=$riders->find($filter);$matches=$riders->find($filter);foreach($matches as $match)$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');  //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper    $pastrider->next();} 		});
 
 //ROUTE FOR CHECKING IF RIDER HAS RIDEN IN THE 2011 EP100
 
@@ -406,7 +406,7 @@ function($f3) {
 	$i = 0;
 	
 //GET LIST OF 2011 RIDERS
-$pastrider=new \DB\SQL\Mapper($db,'mc-2011riders');
+$pastrider=new \DB\SQL\Mapper($db,'mc-2014riders');
 $pastrider->load('');
 while(!$pastrider->dry()) {
 
@@ -416,7 +416,7 @@ $filter = '  LastName = "'.str_replace('"', "", $pastrider->LastName).'" AND Fir
 $matches=$riders->find($filter);
 
 foreach($matches as $match)
-$db->exec('UPDATE registrations SET 2011Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');
+$db->exec('UPDATE registrations SET 2014Rider = "Yes" WHERE RiderID = "'.$match->RiderID.'"');
   //echo $i.". ".$match->FirstName." ".$match->LastName."<br>";//db mapper
   
   $pastrider->next();
